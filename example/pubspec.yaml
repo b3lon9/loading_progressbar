@@ -38,6 +38,7 @@ dependencies:
 
   loading_progressbar:
     path: ../
+  flutter_logcat: ^1.2.5
 
 dev_dependencies:
   flutter_test:
