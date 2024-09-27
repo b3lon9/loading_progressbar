@@ -1,7 +1,7 @@
 # LoadingProgressbar Widget
 [![Pub Version](https://img.shields.io/pub/v/loading_progressbar?color=blue)](https://pub.dev/packages/loading_progressbar)
 
-Simple Management LoadingProgressbar <br/>
+You can pull out the widget you defined in the progress bar whenever you want.<br/>
 
 <img src="https://github.com/user-attachments/assets/163f6763-026f-43d9-9d99-5ad2faa06abb" alt="GIF" width="300">
 
@@ -68,3 +68,33 @@ final LoadingProgressbarController controller = LoadingProgressbarController();
 |  barrierDismissible  |  :x:                 |  bool                          |  true                         |
 |  transitionDuration  |  :x:                 |  Duration                      |  Duration(milliseconds: 650)  |
 |  child               |  :heavy_check_mark:  |  Widget                        |                               |
+
+#### Listen Event
+
+- Function Events (show, hide, change progress)
+- AnimatedEnd Event : It indicates that the animation has completed after using the show or hide function.
+
+```dart
+  final LoadingProgressbarController controller = LoadingProgressbarController();
+  
+  @override
+  void initState() {
+    super.initState();
+
+    controller
+      ..addEventListener((event, visible, progress) {
+        Log.i("addEventListener.. event:$event, visible:$visible, progress:$progress");
+      },)
+      ..addAnimatedEndListener((visible, progress) {
+        Log.d("addAnimatedEndListener.. visible:$visible, progress:$progress");
+      },);
+  }
+```
+
+#### LoadingProgressbarController's the point Functions
+
+- `show()`
+- `hide()`
+- `isShowing`
+- `setProgress(int progress)`
+- `getProgress()`
