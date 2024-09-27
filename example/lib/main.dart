@@ -29,6 +29,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final LoadingProgressbarController controller = LoadingProgressbarController();
+  Timer? timer;
   int count = 5;
   bool isProgressTextVisible = false;
 
@@ -38,7 +39,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
     controller
       ..addEventListener((event, visible, progress) {
-      Log.i("addEventListener.. event:$event, visible:$visible, progress:$progress");
+        Log.i("addEventListener.. event:$event, visible:$visible, progress:$progress");
+        if (!visible) {
+          timer?.cancel();
+          timer = null;
+        }
       },)
       ..addAnimatedEndListener((visible, progress) {
         Log.d("addAnimatedEndListener.. visible:$visible, progress:$progress");
@@ -120,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     count = 6;
                   }
 
-                  Timer.periodic(const Duration(seconds: 1), (timer) {
+                  timer = Timer.periodic(const Duration(seconds: 1), (timer) {
                     if (count <= 0) {
                       timer.cancel();
                       controller.hide();

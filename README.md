@@ -2,6 +2,7 @@
 [![Pub Version](https://img.shields.io/pub/v/loading_progressbar?color=blue)](https://pub.dev/packages/loading_progressbar)
 
 You can pull out the widget you defined in the progress bar whenever you want.<br/>
+You just need to wrap it with LoadingProgressbar!<br/>
 
 <img src="https://github.com/user-attachments/assets/163f6763-026f-43d9-9d99-5ad2faa06abb" alt="GIF" width="300">
 
@@ -90,6 +91,8 @@ final LoadingProgressbarController controller = LoadingProgressbarController();
       },);
   }
 ```
+
+<br/>
 
 #### LoadingProgressbarController's the point Functions
 
