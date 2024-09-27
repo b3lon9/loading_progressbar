@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:loading_progressbar/src/protocols/progress_level_protocol.dart';
-import 'package:loading_progressbar/src/protocols/visible_control_protocol.dart';
-import 'package:loading_progressbar/src/providers/progress_level_notifier.dart';
-import 'package:loading_progressbar/src/providers/visible_control_notifier.dart';
+import '/src/protocols/progress_level_protocol.dart';
+import '/src/protocols/visible_control_protocol.dart';
+import '/src/providers/progress_level_notifier.dart';
+import '/src/providers/visible_control_notifier.dart';
 
 class LoadingProgressbar extends StatefulWidget {
   const LoadingProgressbar({
@@ -12,13 +12,17 @@ class LoadingProgressbar extends StatefulWidget {
     this.alignment = Alignment.center,
     this.barrierColor = Colors.black54,
     this.barrierDismissible = true,
-    this.transitionDuration = const Duration(seconds: 0),
+    this.transitionDuration = const Duration(milliseconds: 650),
     required this.child,
   });
 
+  /// Your custom Progressbar Widget.
   final Widget Function(BuildContext context, int progress) progressbar;
   /// Control all about LoadingProgressbar Widget's state.
   final LoadingProgressbarController controller;
+  /// Progressbar Widget alignment.
+  ///
+  /// Default value os [Alignment.center]
   final AlignmentGeometry alignment;
   final Color barrierColor;
   /// If [barrierDismissible] was 'true',
@@ -56,29 +60,39 @@ class _LoadingProgressbarState extends State<LoadingProgressbar> {
           builder: (context, visible, child) => AnimatedOpacity(
             opacity: visible ? 1.0 : 0.0,
             duration: widget.transitionDuration,
+            onEnd: () {
+              if (!visible) {
+                setState(() {
+                  widget.controller._isWidgetVisible = false;
+                });
+              }
+            },
             child: Visibility(
-              visible: visible,
-              child: GestureDetector(
-                onTap: widget.barrierDismissible ? null : () { /* Block LoadingProgressbar Widget */ },
-                child: Stack(
-                  children: [
-                    Center(
-                      child: Container(
-                        color: widget.barrierColor,
-                      ),
-                    ),
-                    Align(
-                      alignment: widget.alignment,
-                      child: ValueListenableBuilder(
-                        valueListenable: widget.controller._progressLevelNotifier,
-                        builder: (context, progress, child) {
-                          return widget.progressbar(context, progress);
-                        },
-                      ),
-                    ),
-                  ],
+              visible: widget.controller._isWidgetVisible,
+              child: child!,
+            ),
+          ),
+          child: GestureDetector(
+            onTap: widget.barrierDismissible
+              ? () => widget.controller.hide()
+              : null,
+            child: Stack(
+              children: [
+                Center(
+                  child: Container(
+                    color: widget.barrierColor,
+                  ),
                 ),
-              ),
+                Align(
+                  alignment: widget.alignment,
+                  child: ValueListenableBuilder(
+                    valueListenable: widget.controller._progressLevelNotifier,
+                    builder: (context, progress, child) {
+                      return widget.progressbar(context, progress);
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
         )
@@ -95,6 +109,8 @@ class LoadingProgressbarController implements VisibleControlProtocol, ProgressLe
 
   late final ProgressLevelNotifier _progressLevelNotifier;
   late final VisibleControlNotifier _visibleControlNotifier;
+
+  bool _isWidgetVisible = false;
 
   /// Constructor
   LoadingProgressbarController()
@@ -117,6 +133,7 @@ class LoadingProgressbarController implements VisibleControlProtocol, ProgressLe
 
   @override
   void show() {
+    _isWidgetVisible = true;
     _visibleControlNotifier.show();
   }
 

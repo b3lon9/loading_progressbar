@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
-import 'package:loading_progressbar/src/protocols/visible_control_protocol.dart';
+import 'package:flutter/material.dart';
+import '/src/protocols/visible_control_protocol.dart';
 
 class VisibleControlNotifier extends ValueNotifier<bool> implements VisibleControlProtocol {
   VisibleControlNotifier(super.value);
@@ -10,12 +10,10 @@ class VisibleControlNotifier extends ValueNotifier<bool> implements VisibleContr
   @override
   void hide() {
     value = false;
-    notifyListeners();
   }
 
   @override
   void show() {
     value = true;
-    notifyListeners();
   }
 }

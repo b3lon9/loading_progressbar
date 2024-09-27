@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
-import 'package:loading_progressbar/src/protocols/progress_level_protocol.dart';
+import 'package:flutter/material.dart';
+import '/src/protocols/progress_level_protocol.dart';
 
 class ProgressLevelNotifier extends ValueNotifier<int> implements ProgressLevelProtocol {
   ProgressLevelNotifier(super.value);
@@ -12,6 +12,5 @@ class ProgressLevelNotifier extends ValueNotifier<int> implements ProgressLevelP
   @override
   void setProgress(int progress) {
     value = progress;
-    notifyListeners();
   }
 }
