@@ -30,82 +30,90 @@ class LoadingProgressbar extends StatelessWidget {
   ///   }
   /// ```
   final Widget Function(BuildContext context, int progress) progressbar;
+
   /// Control all about LoadingProgressbar Widget's state.
   final LoadingProgressbarController controller;
+
   /// Progressbar Widget alignment.
   ///
   /// Default value os [Alignment.center]
   final AlignmentGeometry alignment;
+
   /// Progressbar Widget's behind color(background).
   ///
   /// Default value is [Colors.black54]
   final Color barrierColor;
+
   /// If [barrierDismissible] was 'true',
   /// It could be dismissible on touch LoadingProgressbar widget.
   ///
   /// If [barrierDismissible] was 'false',
   /// It couldn't be dismissible on touch LoadingProgressbar widget.
   final bool barrierDismissible;
+
   /// Transition Build to LoadingProgressbar Widget. Animated duration.
   ///
   /// If you don't want transition, you have to define [Duration(seconds: 0)]
   ///
   /// Default value is [Duration(milliseconds: 650]).
   final Duration transitionDuration;
+
   /// User Custom Widget Base.
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        child,
-        StatefulBuilder(
-          builder: (context, setState) => ValueListenableBuilder(
-            valueListenable: controller._progressVisibleNotifier,
-            builder: (context, visible, child) => AnimatedOpacity(
-              opacity: visible ? 1.0 : 0.0,
-              duration: transitionDuration,
-              onEnd: () {
-                if (!visible) {
-                  setState(() {
-                    controller._isWidgetVisible = false;
-                  });
-                }
-                controller._animateEnd(visible);
-              },
-              child: Visibility(
-                visible: controller._isWidgetVisible,
-                child: child!,
+    return Semantics(
+      label: "LoadingProgressbar",
+      tooltip: "Simple Changed 'child' and 'progressbar' each other.",
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          child,
+          StatefulBuilder(
+            builder: (context, setState) => ValueListenableBuilder(
+              valueListenable: controller._progressVisibleNotifier,
+              builder: (context, visible, child) => AnimatedOpacity(
+                opacity: visible ? 1.0 : 0.0,
+                duration: transitionDuration,
+                onEnd: () {
+                  if (!visible) {
+                    setState(() {
+                      controller._isWidgetVisible = false;
+                    });
+                  }
+                  controller._animateEnd(visible);
+                },
+                child: Visibility(
+                  visible: controller._isWidgetVisible,
+                  child: child!,
+                ),
+              ),
+              child: GestureDetector(
+                onTap: barrierDismissible ? () => controller.hide() : null,
+                child: Stack(
+                  children: [
+                    Center(
+                      child: Container(
+                        color: barrierColor,
+                      ),
+                    ),
+                    Align(
+                      alignment: alignment,
+                      child: ValueListenableBuilder(
+                        valueListenable: controller._progressLevelNotifier,
+                        builder: (context, progress, child) {
+                          return progressbar(context, progress);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            child: GestureDetector(
-              onTap: barrierDismissible
-                ? () => controller.hide()
-                : null,
-              child: Stack(
-                children: [
-                  Center(
-                    child: Container(
-                      color: barrierColor,
-                    ),
-                  ),
-                  Align(
-                    alignment: alignment,
-                    child: ValueListenableBuilder(
-                      valueListenable: controller._progressLevelNotifier,
-                      builder: (context, progress, child) {
-                        return progressbar(context, progress);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }
@@ -116,7 +124,11 @@ class LoadingProgressbar extends StatelessWidget {
 /// [hide] - InVisible LoadingProgressbar's '[progressbar]' Widget. <br/>
 /// [isShowing] - If you want current Progressbar visible state. <br/>
 /// [setProgress] - Send progress level to '[progressbar]' Widget. <br/>
-class LoadingProgressbarController implements ProgressVisibleProtocol, ProgressLevelProtocol, ProgressEventListener {
+class LoadingProgressbarController
+    implements
+        ProgressVisibleProtocol,
+        ProgressLevelProtocol,
+        ProgressEventListener {
   /// Progressbar Widget INVISIBLE mode would be progress level smaller than [_minValue].
   ///
   /// Progressbar Widget INVISIBLE mode would be progress level bigger than [_maxValue].
@@ -133,14 +145,13 @@ class LoadingProgressbarController implements ProgressVisibleProtocol, ProgressL
 
   /// Constructor
   LoadingProgressbarController()
-    //:
-    // _minValue = minValue,
-    // _maxValue = maxValue
+  //:
+  // _minValue = minValue,
+  // _maxValue = maxValue
   {
     this._progressLevelNotifier = ProgressLevelNotifier(0);
     this._progressVisibleNotifier = ProgressVisibleNotifier(false);
   }
-
 
   /// Called at the end of AnimatedOpacity's onEnd() function.
   void _animateEnd(bool isVisible) {
@@ -183,7 +194,8 @@ class LoadingProgressbarController implements ProgressVisibleProtocol, ProgressL
   void setProgress(int progress) {
     _progressLevelNotifier.setProgress(progress);
     if (_eventListener != null) {
-      _eventListener!(LoadingProgressbarEvent.progress, isShowing, getProgress());
+      _eventListener!(
+          LoadingProgressbarEvent.progress, isShowing, getProgress());
     }
   }
 
@@ -206,12 +218,14 @@ class LoadingProgressbarController implements ProgressVisibleProtocol, ProgressL
 
   /// This Event called when executed to animate end after [show], [hide] functions.
   @override
-  void addAnimatedEndListener(LoadingProgressbarAnimatedEndEventFunction eventListener) {
+  void addAnimatedEndListener(
+      LoadingProgressbarAnimatedEndEventFunction eventListener) {
     _animatedEndEventListener = eventListener;
   }
 
   @override
-  void removeAnimatedEndEventListener(LoadingProgressbarAnimatedEndEventFunction eventListener) {
+  void removeAnimatedEndEventListener(
+      LoadingProgressbarAnimatedEndEventFunction eventListener) {
     if (_animatedEndEventListener.hashCode == eventListener.hashCode) {
       _animatedEndEventListener = null;
     }
