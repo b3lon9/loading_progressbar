@@ -19,6 +19,16 @@ class LoadingProgressbar extends StatelessWidget {
   });
 
   /// Your custom Progressbar Widget.
+  ///
+  /// ```dart
+  /// progressbar: (context, progress) {
+  ///   return Column(
+  ///     children: [
+  ///       CircularProgressIndicator(),
+  ///       Text("$progress%"),
+  ///     ]
+  ///   }
+  /// ```
   final Widget Function(BuildContext context, int progress) progressbar;
   /// Control all about LoadingProgressbar Widget's state.
   final LoadingProgressbarController controller;
@@ -26,6 +36,9 @@ class LoadingProgressbar extends StatelessWidget {
   ///
   /// Default value os [Alignment.center]
   final AlignmentGeometry alignment;
+  /// Progressbar Widget's behind color(background).
+  ///
+  /// Default value is [Colors.black54]
   final Color barrierColor;
   /// If [barrierDismissible] was 'true',
   /// It could be dismissible on touch LoadingProgressbar widget.
@@ -35,9 +48,11 @@ class LoadingProgressbar extends StatelessWidget {
   final bool barrierDismissible;
   /// Transition Build to LoadingProgressbar Widget. Animated duration.
   ///
-  /// Default value [Duration(seconds: 0].
+  /// If you don't want transition, you have to define [Duration(seconds: 0)]
+  ///
+  /// Default value is [Duration(milliseconds: 650]).
   final Duration transitionDuration;
-  /// User Custom Widget
+  /// User Custom Widget Base.
   final Widget child;
 
   @override
@@ -95,6 +110,12 @@ class LoadingProgressbar extends StatelessWidget {
   }
 }
 
+/// LoadingProgressbarController can control the LoadingProgressbar Widget.
+///
+/// [show] - Visible LoadingProgressbar's '[progressbar]' Widget. <br/>
+/// [hide] - InVisible LoadingProgressbar's '[progressbar]' Widget. <br/>
+/// [isShowing] - If you want current Progressbar visible state. <br/>
+/// [setProgress] - Send progress level to '[progressbar]' Widget. <br/>
 class LoadingProgressbarController implements ProgressVisibleProtocol, ProgressLevelProtocol, ProgressEventListener {
   /// Progressbar Widget INVISIBLE mode would be progress level smaller than [_minValue].
   ///
@@ -126,6 +147,11 @@ class LoadingProgressbarController implements ProgressVisibleProtocol, ProgressL
     if (_animatedEndEventListener != null) {
       _animatedEndEventListener!(isVisible, getProgress());
     }
+  }
+
+  void dispose() {
+    _progressVisibleNotifier.dispose();
+    _progressLevelNotifier.dispose();
   }
 
   @override
@@ -161,6 +187,11 @@ class LoadingProgressbarController implements ProgressVisibleProtocol, ProgressL
     }
   }
 
+  /// You can check current LoadingProgressbar's state. <br/>
+  ///
+  /// [status] - [LoadingProgressbarEvent] type "hide, show, progress" implemented function event. <br/>
+  /// [visible] - '[progressbar]' Widget visible state. <br/>
+  /// [progress] - LoadingProgressbar's progress gauge(level). <br/>
   @override
   void addEventListener(LoadingProgressbarEventFunction eventListener) {
     _eventListener = eventListener;
@@ -173,6 +204,7 @@ class LoadingProgressbarController implements ProgressVisibleProtocol, ProgressL
     }
   }
 
+  /// This Event called when executed to animate end after [show], [hide] functions.
   @override
   void addAnimatedEndListener(LoadingProgressbarAnimatedEndEventFunction eventListener) {
     _animatedEndEventListener = eventListener;

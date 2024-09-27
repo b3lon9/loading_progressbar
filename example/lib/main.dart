@@ -47,6 +47,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void dispose() {
+    controller.dispose();
+      // ..removeEventListener(eventListener)
+      // ..removeAnimatedEndEventListener(eventListener)
+
     super.dispose();
   }
 
@@ -58,12 +62,16 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const CircularProgressIndicator(),
+              CircularProgressIndicator(
+                color: Colors.yellowAccent,
+                backgroundColor: Colors.black,
+                value: progress / 100,
+              ),
               Visibility(
                 visible: isProgressTextVisible,
                 child: Text("$progress%",
                   style: DefaultTextStyle.of(context).style.copyWith(
-                    color: Colors.black,
+                    color: Colors.yellow,
                     fontSize: 24.0,
                     decorationThickness: 0.0
                   ),
