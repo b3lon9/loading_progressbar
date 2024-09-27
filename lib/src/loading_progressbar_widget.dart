@@ -158,6 +158,12 @@ class LoadingProgressbarController
   }
 
   /// Called at the end of AnimatedOpacity's onEnd() function.
+  ///
+  /// If the AnimatedOpacity widget is removed from the widget tree
+  /// or its state is changed, causing the widget to rebuild during
+  /// the disappearance animation, the animation may stop, and onEnd
+  /// might not be called. This is especially true if the screen transitions
+  /// or the widget disappears before the animation completes.
   void _animateEnd(bool isVisible) {
     if (_animatedEndEventListener != null) {
       _animatedEndEventListener!(isVisible, getProgress());
@@ -165,6 +171,7 @@ class LoadingProgressbarController
   }
 
   void dispose() {
+    _isWidgetVisible = false;
     _progressVisibleNotifier.dispose();
     _progressLevelNotifier.dispose();
   }
