@@ -11,7 +11,7 @@ void main() {
   runApp(MaterialApp(
     title: 'Flutter Demo',
     theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreen),
+      colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
       useMaterial3: true,
     ),
     home: const MyHomePage(title: 'Flutter LoadingProgressbar Demo'),
@@ -62,17 +62,15 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircularProgressIndicator(
+              const CircularProgressIndicator(
                 color: Colors.yellowAccent,
-                backgroundColor: Colors.black,
-                value: progress / 100,
               ),
               Visibility(
                 visible: isProgressTextVisible,
                 child: Text("$progress%",
                   style: DefaultTextStyle.of(context).style.copyWith(
                     color: Colors.yellow,
-                    fontSize: 24.0,
+                    fontSize: 21.0,
                     decorationThickness: 0.0
                   ),
                 ),
@@ -84,20 +82,17 @@ class _MyHomePageState extends State<MyHomePage> {
       controller: controller,
       transitionDuration: const Duration(seconds: 1),
       child: Scaffold(
-        body: Center(
+        backgroundColor: Colors.blueGrey,
+        body: const Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('Home Screen',
+              Text('Home Screen',
                 style: TextStyle(
-                  fontSize: 36.0,
+                  color: Colors.white60,
+                  fontSize: 28.0,
                 ),
               ),
-              Text(count.toString(),
-                style: const TextStyle(
-                  fontSize: 24.0
-                ),
-              )
             ],
           ),
         ),
@@ -112,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Log.d("LoadingProgressbar show()");
                   controller.show();
                 },
-                tooltip: 'Increment',
+                tooltip: 'Default LoadingProgressbar',
                 child: const Icon(Icons.visibility),
               ),
               const SizedBox(height: 12.0,),
@@ -137,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   },);
 
                 },
-                tooltip: 'Increment',
+                tooltip: 'Decrease 5 ~ 0',
                 child: const Icon(Icons.visibility_off),
               ),
               const SizedBox(height: 12.0,),
@@ -157,7 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     }
                   },);
                 },
-                tooltip: 'Increment',
+                tooltip: 'Increment 0 ~ 100',
                 child: const Icon(Icons.trending_up_outlined),
               ),
             ],

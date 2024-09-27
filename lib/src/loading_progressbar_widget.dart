@@ -49,6 +49,10 @@ class LoadingProgressbar extends StatelessWidget {
   ///
   /// If [barrierDismissible] was 'false',
   /// It couldn't be dismissible on touch LoadingProgressbar widget.
+  ///
+  /// <br/>
+  ///
+  /// Default value is 'true'
   final bool barrierDismissible;
 
   /// Transition Build to LoadingProgressbar Widget. Animated duration.
