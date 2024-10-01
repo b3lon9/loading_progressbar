@@ -210,7 +210,10 @@ class MultiLoadingProgressbarController
       assert(index < this._progressMultiNotifier.multiCount,
           "index:[$index] must not be greater than itemCount:[${this._progressMultiNotifier.multiCount}]");
       _progressMultiNotifier.value = index;
+    } else {
+      _progressMultiNotifier.normalize();
     }
+
     _progressVisibleNotifier.show();
     if (_eventListener != null) {
       _eventListener!(

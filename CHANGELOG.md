@@ -1,3 +1,6 @@
+## 0.0.5
+* Fix defaultIndex normalize into show() function of MultiLoadingProgressbarController.
+
 ## 0.0.4
 * Added MultiLoadingProgressbar Widget.
 
