@@ -1,3 +1,6 @@
+## 0.0.4
+* Added MultiLoadingProgressbar Widget.
+
 ## 0.0.3
 * Added put init widgetVisible property into `dispose()` function. 
 

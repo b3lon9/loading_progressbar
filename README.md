@@ -25,7 +25,8 @@ import 'package:loading_progressbar/loading_progressbar.dart';
 
 ## Update 🎁
 I have newly added the MultiLoadingProgressbar. <br/>
-You can set up multiple progress bars and call them whenever needed.
+You can set up multiple progress bars and call them whenever needed. <br/>
+I referenced the [loading_animation_widget](https://pub.dev/packages/loading_animation_widget) package.
 
 <img src="https://github.com/user-attachments/assets/7c678a53-83d8-4be8-b1c6-ceb61bb64665" alt="GIF" width="320"/>
 
