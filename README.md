@@ -7,6 +7,7 @@ You just need to wrap it with LoadingProgressbar!<br/>
 <img src="https://github.com/user-attachments/assets/163f6763-026f-43d9-9d99-5ad2faa06abb" alt="GIF" width="300">
 
 <br/>
+<br/>
 
 ## Getting started 🌱
 
@@ -19,6 +20,49 @@ flutter pub add loading_progressbar
 ```dart
 import 'package:loading_progressbar/loading_progressbar.dart';
 ```
+
+<br/>
+
+## Update 🎁
+I have newly added the MultiLoadingProgressbar. <br/>
+You can set up multiple progress bars and call them whenever needed.
+
+<img src="https://github.com/user-attachments/assets/7c678a53-83d8-4be8-b1c6-ceb61bb64665" alt="GIF" width="320"/>
+
+```dart
+final MultiLoadingProgressbarController controller = MultiLoadingProgressbarController(itemCount: 3);
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiLoadingProgressbar(
+      controller: controller,
+      progressbar: (context, progress) => [
+        LoadingAnimationWidget.staggeredDotsWave(color: Colors.blueGrey, size: 36.0),
+        LoadingAnimationWidget.hexagonDots(color: Colors.blueGrey, size: 36.0),
+        LoadingAnimationWidget.beat(color: Colors.blueGrey, size: 36.0)
+      ],
+      child: Scaffold(
+        backgroundColor: Colors.blueGrey,
+        body: ...
+```
+<br/>
+
+The index of the `progressbar` widget you want
+```dart
+  ...
+  onPressed: () {
+    controller.show();
+  },
+  ...
+  onPressed: () {
+    controller.show(index: 1);
+  },
+  ...
+  onPressed: () {
+    controller.show(index: 2);
+  },  
+```
+
 
 <br/>
 
