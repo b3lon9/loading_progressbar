@@ -69,7 +69,7 @@ class MultiLoadingProgressbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      label: "LoadingProgressbar",
+      label: "MultiLoadingProgressbar",
       tooltip: "Simple Changed 'child' and 'progressbar' each other.",
       child: Stack(
         fit: StackFit.expand,
