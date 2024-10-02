@@ -9,7 +9,6 @@ abstract class ProgressMultiEventListener {
   void addEventListener(MultiLoadingProgressbarEventFunction eventListener);
   void addAnimatedEndListener(
       MultiLoadingProgressbarAnimatedEndEventFunction eventListener);
-  void removeEventListener(MultiLoadingProgressbarEventFunction eventListener);
-  void removeAnimatedEndEventListener(
-      MultiLoadingProgressbarAnimatedEndEventFunction eventListener);
+  void clearEventListener();
+  void clearAnimatedEndEventListener();
 }

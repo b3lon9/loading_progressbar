@@ -221,24 +221,19 @@ class LoadingProgressbarController
   }
 
   @override
-  void removeEventListener(LoadingProgressbarEventFunction eventListener) {
-    if (eventListener.hashCode == eventListener.hashCode) {
-      this._eventListener = null;
-    }
-  }
-
-  /// This Event called when executed to animate end after [show], [hide] functions.
-  @override
   void addAnimatedEndListener(
       LoadingProgressbarAnimatedEndEventFunction eventListener) {
     _animatedEndEventListener = eventListener;
   }
 
+  /// This Event called when executed to animate end after [show], [hide] functions.
   @override
-  void removeAnimatedEndEventListener(
-      LoadingProgressbarAnimatedEndEventFunction eventListener) {
-    if (_animatedEndEventListener.hashCode == eventListener.hashCode) {
-      _animatedEndEventListener = null;
-    }
+  void clearEventListener() {
+    this._eventListener = null;
+  }
+
+  @override
+  void clearAnimatedEndEventListener() {
+    this._animatedEndEventListener = null;
   }
 }

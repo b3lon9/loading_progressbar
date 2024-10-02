@@ -145,3 +145,9 @@ final LoadingProgressbarController controller = LoadingProgressbarController();
 - `isShowing`
 - `setProgress(int progress)`
 - `getProgress()`
+- `addEventListener(...)`
+- `addAnimatedEndListener(...)`
+- `clearEventListener()`
+- `clearAnimatedEndEventListener()`
+
+<br/> 

@@ -250,28 +250,23 @@ class MultiLoadingProgressbarController
   }
 
   @override
-  void removeEventListener(MultiLoadingProgressbarEventFunction eventListener) {
-    if (eventListener.hashCode == eventListener.hashCode) {
-      this._eventListener = null;
-    }
-  }
-
-  /// This Event called when executed to animate end after [show], [hide] functions.
-  @override
   void addAnimatedEndListener(
       MultiLoadingProgressbarAnimatedEndEventFunction eventListener) {
     _animatedEndEventListener = eventListener;
   }
 
-  @override
-  void removeAnimatedEndEventListener(
-      MultiLoadingProgressbarAnimatedEndEventFunction eventListener) {
-    if (_animatedEndEventListener.hashCode == eventListener.hashCode) {
-      _animatedEndEventListener = null;
-    }
-  }
-
-  /// Progressbar's index
+  /// MultiProgressbar's index
   @override
   int get index => _progressMultiNotifier.value;
+
+  /// This Event called when executed to animate end after [show], [hide] functions.
+  @override
+  void clearEventListener() {
+    this._eventListener = null;
+  }
+
+  @override
+  void clearAnimatedEndEventListener() {
+    _animatedEndEventListener = null;
+  }
 }

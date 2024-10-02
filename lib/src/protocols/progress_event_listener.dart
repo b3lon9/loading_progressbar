@@ -9,7 +9,6 @@ abstract class ProgressEventListener {
   void addEventListener(LoadingProgressbarEventFunction eventListener);
   void addAnimatedEndListener(
       LoadingProgressbarAnimatedEndEventFunction eventListener);
-  void removeEventListener(LoadingProgressbarEventFunction eventListener);
-  void removeAnimatedEndEventListener(
-      LoadingProgressbarAnimatedEndEventFunction eventListener);
+  void clearEventListener();
+  void clearAnimatedEndEventListener();
 }

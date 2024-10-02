@@ -1,6 +1,6 @@
 name: loading_progressbar
 description: "Flutter LoadingProgressbar Widget. You can pull out the progressbar Widget Whenever you want."
-version: 0.0.6
+version: 0.0.7
 repository: https://github.com/b3lon9/loading_progressbar
 
 environment:

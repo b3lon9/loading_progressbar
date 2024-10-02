@@ -1,3 +1,7 @@
+## 0.0.7
+* Changed removeEventListener to clearEventListener.
+* Changed removeAnimatedEndListener to clearAnimatedEndListener.
+
 ## 0.0.6
 * Fixed MultiLoadingProgressbar's dispose function.
 
