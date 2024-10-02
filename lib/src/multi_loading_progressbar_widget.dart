@@ -19,16 +19,18 @@ class MultiLoadingProgressbar extends StatelessWidget {
     required this.child,
   });
 
-  /// Your custom Progressbar Widget.
+  /// Your custom MultiProgressbar Widget.
   ///
   /// ```dart
-  /// progressbar: (context, progress) {
-  ///   return Column(
-  ///     children: [
-  ///       CircularProgressIndicator(),
-  ///       Text("$progress%"),
-  ///     ]
-  ///   }
+  /// progressbar: (context, progress) => [
+  ///     CircularProgressIndicator(),
+  ///     LinearProgressIndicator(),
+  ///     ...
+  ///   ]
+  ///
+  /// ...
+  /// controller.show(index: 1);
+  ///
   /// ```
   final List<Widget> Function(BuildContext context, int progress) progressbar;
 
@@ -127,10 +129,10 @@ class MultiLoadingProgressbar extends StatelessWidget {
   }
 }
 
-/// LoadingProgressbarController can control the LoadingProgressbar Widget.
+/// MultiLoadingProgressbarController can control the LoadingProgressbar Widget.
 ///
-/// [show] - Visible LoadingProgressbar's '[progressbar]' Widget. <br/>
-/// [hide] - InVisible LoadingProgressbar's '[progressbar]' Widget. <br/>
+/// [show] - Visible MultiLoadingProgressbar's '[progressbar]' Widget. <br/>
+/// [hide] - InVisible MultiLoadingProgressbar's '[progressbar]' Widget. <br/>
 /// [isShowing] - If you want current Progressbar visible state. <br/>
 /// [setProgress] - Send progress level to '[progressbar]' Widget. <br/>
 class MultiLoadingProgressbarController
@@ -138,9 +140,9 @@ class MultiLoadingProgressbarController
         ProgressMultiVisibleProtocol,
         ProgressLevelProtocol,
         ProgressMultiEventListener {
-  /// Progressbar Widget INVISIBLE mode would be progress level smaller than [_minValue].
+  /// MultiProgressbar Widget INVISIBLE mode would be progress level smaller than [_minValue].
   ///
-  /// Progressbar Widget INVISIBLE mode would be progress level bigger than [_maxValue].
+  /// MultiProgressbar Widget INVISIBLE mode would be progress level bigger than [_maxValue].
   // int _minValue, _maxValue;
 
   late final ProgressLevelNotifier _progressLevelNotifier;
@@ -166,8 +168,8 @@ class MultiLoadingProgressbarController
   {
     this._progressLevelNotifier = ProgressLevelNotifier(0);
     this._progressVisibleNotifier = ProgressVisibleNotifier(false);
-    this._progressMultiNotifier = ProgressMultiNotifier(defaultIndex);
-    this._progressMultiNotifier.multiCount = itemCount;
+    this._progressMultiNotifier =
+        ProgressMultiNotifier(defaultIndex, itemCount: itemCount);
   }
 
   /// Called at the end of AnimatedOpacity's onEnd() function.
@@ -187,6 +189,7 @@ class MultiLoadingProgressbarController
     _isWidgetVisible = false;
     _progressVisibleNotifier.dispose();
     _progressLevelNotifier.dispose();
+    _progressMultiNotifier.dispose();
   }
 
   @override
@@ -207,8 +210,8 @@ class MultiLoadingProgressbarController
     _isWidgetVisible = true;
 
     if (index != null) {
-      assert(index < this._progressMultiNotifier.multiCount,
-          "index:[$index] must not be greater than itemCount:[${this._progressMultiNotifier.multiCount}]");
+      assert(index < this._progressMultiNotifier.itemCount,
+          "index:[$index] must not be greater than itemCount:[${this._progressMultiNotifier.itemCount}]");
       _progressMultiNotifier.value = index;
     } else {
       _progressMultiNotifier.normalize();

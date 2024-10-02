@@ -1,3 +1,6 @@
+## 0.0.6
+* Fixed MultiLoadingProgressbar's dispose function.
+
 ## 0.0.5
 * Fix defaultIndex normalize into show() function of MultiLoadingProgressbarController.
 

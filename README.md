@@ -43,8 +43,7 @@ final MultiLoadingProgressbarController controller = MultiLoadingProgressbarCont
         LoadingAnimationWidget.beat(color: Colors.blueGrey, size: 36.0)
       ],
       child: Scaffold(
-        backgroundColor: Colors.blueGrey,
-        body: ...
+        ...
 ```
 <br/>
 
@@ -52,7 +51,7 @@ The index of the `progressbar` widget you want
 ```dart
   ...
   onPressed: () {
-    controller.show();
+    controller.show();    // Called default index
   },
   ...
   onPressed: () {
