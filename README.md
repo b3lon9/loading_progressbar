@@ -28,7 +28,7 @@ I have newly added the MultiLoadingProgressbar. <br/>
 You can set up multiple progress bars and call them whenever needed. <br/>
 I referenced the [loading_animation_widget](https://pub.dev/packages/loading_animation_widget) package.
 
-<img src="https://github.com/user-attachments/assets/7c678a53-83d8-4be8-b1c6-ceb61bb64665" alt="GIF" width="320"/>
+<img src="https://github.com/user-attachments/assets/5bd3b5b4-f737-48f7-ba4c-902c1af9acd0" alt="GIF" width="320"/>
 
 ```dart
   final MultiLoadingProgressbarController controller = MultiLoadingProgressbarController(itemCount: 3);
@@ -70,7 +70,7 @@ The index of the `progressbar` widget you want
 
 ## Example 🎈
 ```dart
-final LoadingProgressbarController controller = LoadingProgressbarController();
+  final LoadingProgressbarController controller = LoadingProgressbarController();
 
   @override
   Widget build(BuildContext context) {
@@ -145,6 +145,15 @@ final LoadingProgressbarController controller = LoadingProgressbarController();
         Log.d("addAnimatedEndListener.. visible:$visible, progress:$progress");
       },);
   }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    // ..removeEventListener(eventListener)
+    // ..removeAnimatedEndEventListener(eventListener)
+
+    super.dispose();
+  }
 ```
 
 <br/>
@@ -160,5 +169,6 @@ final LoadingProgressbarController controller = LoadingProgressbarController();
 - `addAnimatedEndListener(...)`
 - `clearEventListener()`
 - `clearAnimatedEndEventListener()`
+- `dispose()`
 
 <br/> 
