@@ -1,3 +1,6 @@
+## 0.1.1
+* Added put reverseDuration parameter into MultiLoadingProgressbar.
+
 ## 0.1.0
 * Add reverseDuration, when progressbar hide.
 * Fixed bug, It can't touch the Progressbar widget screen when pop action for progressbar hide. 

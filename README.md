@@ -125,6 +125,8 @@ The index of the `progressbar` widget you want
 | reverseDuration    |  :x:                 |  Duration                      | transitionDuration          |
 | child              |  :heavy_check_mark:  |  Widget                        |                             |
 
+<br/>
+
 #### Listen Event
 
 - Function Events (show, hide, change progress)
