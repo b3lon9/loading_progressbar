@@ -31,7 +31,7 @@ I referenced the [loading_animation_widget](https://pub.dev/packages/loading_ani
 <img src="https://github.com/user-attachments/assets/7c678a53-83d8-4be8-b1c6-ceb61bb64665" alt="GIF" width="320"/>
 
 ```dart
-final MultiLoadingProgressbarController controller = MultiLoadingProgressbarController(itemCount: 3);
+  final MultiLoadingProgressbarController controller = MultiLoadingProgressbarController(itemCount: 3);
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +49,8 @@ final MultiLoadingProgressbarController controller = MultiLoadingProgressbarCont
 
 The index of the `progressbar` widget you want
 ```dart
+  final MultiLoadingProgressbarController controller = MultiLoadingProgressbarController(itemCount: 3);
+
   ...
   onPressed: () {
     controller.show();    // Called default index
@@ -77,6 +79,14 @@ final LoadingProgressbarController controller = LoadingProgressbarController();
       progressbar: (context, progress) {
         return CircularProgressIndicator(value: progress / 100);
       },
+        
+      // Not required, default values
+      alignment = Alignment.center,
+      barrierColor: Colors.black54,
+      barrierDismissible: true,
+      transitionDuration: const Duration(milliseconds: 650),
+      reverseDuration: const Duration(milliseconds: 650),
+        
       child: Scaffold(
         body: Column(
           children: [
@@ -104,15 +114,16 @@ final LoadingProgressbarController controller = LoadingProgressbarController();
 <br/>
 
 ## Usage 🚀
-|  parameter           |  required            |  type                          | default                       |
-|----------------------|----------------------|--------------------------------|-------------------------------|
-|  progressbar         |  :heavy_check_mark:  |  Widget                        |                               |
-|  controller          |  :heavy_check_mark:  |  LoadingProgressbarController  |                               |
-|  alignment           |  :x:                 |  AlignmentGeometry             |  Alignment.center             |
-|  barrierColor        |  :x:                 |  Color                         |  Colors.black54               |
-|  barrierDismissible  |  :x:                 |  bool                          |  true                         |
-|  transitionDuration  |  :x:                 |  Duration                      |  Duration(milliseconds: 650)  |
-|  child               |  :heavy_check_mark:  |  Widget                        |                               |
+| parameter          |  required            |  type                          | default                     |
+|--------------------|----------------------|--------------------------------|-----------------------------|
+| progressbar        |  :heavy_check_mark:  |  Widget                        |                             |
+| controller         |  :heavy_check_mark:  |  LoadingProgressbarController  |                             |
+| alignment          |  :x:                 |  AlignmentGeometry             | Alignment.center            |
+| barrierColor       |  :x:                 |  Color                         | Colors.black54              |
+| barrierDismissible |  :x:                 |  bool                          | true                        |
+| transitionDuration |  :x:                 |  Duration                      | Duration(milliseconds: 650) |
+| reverseDuration    |  :x:                 |  Duration                      | transitionDuration          |
+| child              |  :heavy_check_mark:  |  Widget                        |                             |
 
 #### Listen Event
 

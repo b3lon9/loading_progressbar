@@ -15,8 +15,9 @@ class LoadingProgressbar extends StatelessWidget {
     this.barrierColor = Colors.black54,
     this.barrierDismissible = true,
     this.transitionDuration = const Duration(milliseconds: 650),
+    Duration? reverseDuration,
     required this.child,
-  });
+  }) : this.reverseDuration = reverseDuration ?? transitionDuration;
 
   /// Your custom Progressbar Widget.
   ///
@@ -62,11 +63,18 @@ class LoadingProgressbar extends StatelessWidget {
   /// Default value is [Duration(milliseconds: 650]).
   final Duration transitionDuration;
 
+  /// Dismiss progress widget's duration.
+  ///
+  /// Default value is [transitionDuration];
+  final Duration reverseDuration;
+
   /// User Custom Widget Base.
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
+    controller._isWidgetVisible = false;
+
     return Semantics(
       label: "LoadingProgressbar",
       tooltip: "Simple Changed 'child' and 'progressbar' each other.",
@@ -79,7 +87,7 @@ class LoadingProgressbar extends StatelessWidget {
               valueListenable: controller._progressVisibleNotifier,
               builder: (context, visible, child) => AnimatedOpacity(
                 opacity: visible ? 1.0 : 0.0,
-                duration: transitionDuration,
+                duration: visible ? transitionDuration : reverseDuration,
                 onEnd: () {
                   if (!visible) {
                     setState(() {

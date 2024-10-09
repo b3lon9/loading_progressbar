@@ -70,6 +70,8 @@ class MultiLoadingProgressbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    controller._isWidgetVisible = false;
+
     return Semantics(
       label: "MultiLoadingProgressbar",
       tooltip: "Simple Changed 'child' and 'progressbar' each other.",
